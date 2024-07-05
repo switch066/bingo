@@ -31,6 +31,16 @@ def convert_to_number(value):
     else:
         return value
 
+def check_mark(marks, item, reach_lines, bingo_lines):
+    if marks == 4:
+        if item not in reach_lines:
+            reach_lines.append(item)
+    elif marks == 5:
+        if item not in bingo_lines:
+            bingo_lines.append(item)
+        if item in reach_lines:
+            reach_lines.remove(item)
+
 def roll():
     card = bingo_card()
     number_storage = []
@@ -49,37 +59,16 @@ def roll():
             for col in range(5):
                 col_marks = sum(isinstance(card[col][row], str) for row in range(5))
                 item = [convert_to_number(card[col][row]) for row in range(5)]
-                if col_marks == 4:
-                    if item not in reach_lines:
-                        reach_lines.append(item)
-                elif col_marks == 5:
-                    if item not in bingo_lines:
-                        bingo_lines.append(item)
-                    if item in reach_lines:
-                        reach_lines.remove(item)
+                check_mark(col_marks, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
 
             for col in range(5):
                 row_marks = sum(isinstance(card[row][col], str) for row in range(5))
                 item = [convert_to_number(card[row][col]) for row in range(5)]
-                if row_marks == 4:
-                    if item not in reach_lines:
-                        reach_lines.append(item)
-                if row_marks == 5:
-                    if item not in bingo_lines:
-                        bingo_lines.append(item)
-                    if item in reach_lines:
-                        reach_lines.remove(item)   
+                check_mark(row_marks, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
             
             diag1 = sum(isinstance(card[i][i], str) for i in range(5))
             item = [convert_to_number(card[i][i]) for i in range(5)]
-            if diag1 == 4:
-                if item not in reach_lines:
-                    reach_lines.append(item)
-            if diag1 == 5:
-                if item not in bingo_lines:
-                    bingo_lines.append(item)
-                if item in reach_lines:
-                    reach_lines.remove(item)
+            check_mark(diag1, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
                     
             diag = [
                 [0,4],
@@ -91,18 +80,9 @@ def roll():
 
             diag2 = sum(isinstance(card[row][column], str) for row, column in diag)
             item = [convert_to_number(card[row][column]) for row, column in diag]
-            if diag2 == 4:
-                if item not in reach_lines:
-                    reach_lines.append(item)
-            if diag2 == 5:
-                if item not in bingo_lines:
-                    bingo_lines.append(item)
-                if item in reach_lines:
-                    reach_lines.remove(item)
+            check_mark(diag2, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
             
             print_card(card)
-
-            
             print(f"REACH: {len(reach_lines)}")
             print(f"BINGO: {len(bingo_lines)}")
             print("----------------")

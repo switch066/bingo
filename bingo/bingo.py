@@ -101,8 +101,10 @@ def roll():
                     reach_lines.remove(item)
             
             print_card(card)
-            print(f"BINGO: {len(bingo_lines)}")
+
+            
             print(f"REACH: {len(reach_lines)}")
+            print(f"BINGO: {len(bingo_lines)}")
             print("----------------")
     
         else:

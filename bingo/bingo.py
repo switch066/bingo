@@ -14,12 +14,12 @@ def bingo_card():
             random_number = random.sample(range(number_range[row][0], number_range[row][1] + 1), 5)
             bingo_card.append(random_number)
 
-        arranged = map(list, zip(*bingo_card))
         bingo_card[2][2] = "Free"
+        
         if len(bingo_card) == 5:
             break
 
-    return list(arranged)
+    return list(map(list, zip(*bingo_card)))
 
 def print_card(card):
     for row in card:
@@ -58,17 +58,17 @@ def roll():
 
             for col in range(5):
                 col_marks = sum(isinstance(card[col][row], str) for row in range(5))
-                item = [convert_to_number(card[col][row]) for row in range(5)]
-                check_mark(col_marks, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+                row_item = [convert_to_number(card[col][row]) for row in range(5)]
+                check_mark(col_marks, item=row_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
 
             for col in range(5):
                 row_marks = sum(isinstance(card[row][col], str) for row in range(5))
-                item = [convert_to_number(card[row][col]) for row in range(5)]
-                check_mark(row_marks, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+                col_item = [convert_to_number(card[row][col]) for row in range(5)]
+                check_mark(row_marks, item=col_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
             
             diag1 = sum(isinstance(card[i][i], str) for i in range(5))
-            item = [convert_to_number(card[i][i]) for i in range(5)]
-            check_mark(diag1, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+            diag1_item = [convert_to_number(card[i][i]) for i in range(5)]
+            check_mark(diag1, item=diag1_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
                     
             diag = [
                 [0,4],
@@ -79,8 +79,8 @@ def roll():
             ]
 
             diag2 = sum(isinstance(card[row][column], str) for row, column in diag)
-            item = [convert_to_number(card[row][column]) for row, column in diag]
-            check_mark(diag2, item=item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+            diag2_item = [convert_to_number(card[row][column]) for row, column in diag]
+            check_mark(diag2, item=diag2_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
             
             print_card(card)
             print(f"REACH: {len(reach_lines)}")

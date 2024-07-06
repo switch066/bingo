@@ -15,7 +15,7 @@ def bingo_card():
             bingo_card.append(random_number)
 
         bingo_card[2][2] = "Free"
-        
+
         if len(bingo_card) == 5:
             break
 
@@ -57,14 +57,14 @@ def roll():
                         lists[index] = f"({number})"
 
             for col in range(5):
-                col_marks = sum(isinstance(card[col][row], str) for row in range(5))
+                row_marks = sum(isinstance(card[col][row], str) for row in range(5))
                 row_item = [convert_to_number(card[col][row]) for row in range(5)]
-                check_mark(col_marks, item=row_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+                check_mark(row_marks, item=row_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
 
             for col in range(5):
-                row_marks = sum(isinstance(card[row][col], str) for row in range(5))
+                col_marks = sum(isinstance(card[row][col], str) for row in range(5))
                 col_item = [convert_to_number(card[row][col]) for row in range(5)]
-                check_mark(row_marks, item=col_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
+                check_mark(col_marks, item=col_item, reach_lines=reach_lines, bingo_lines=bingo_lines)
             
             diag1 = sum(isinstance(card[i][i], str) for i in range(5))
             diag1_item = [convert_to_number(card[i][i]) for i in range(5)]

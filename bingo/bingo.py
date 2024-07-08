@@ -7,7 +7,7 @@ def bingo_card():
             [16, 30],
             [31, 45],
             [46, 60],
-            [60, 75]
+            [61, 75]
         ]
         bingo_card = []
         for row in range(5):
